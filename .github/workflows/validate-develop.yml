@@ -1,0 +1,49 @@
+name: Validate Develop PR
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  validate-commits-and-approvals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate number of commits
+        run: |
+          COMMIT_COUNT=$(git rev-list --count origin/${{ github.event.pull_request.head.ref }})
+          echo "Commits in PR: $COMMIT_COUNT"
+          if [[ "$COMMIT_COUNT" -ne 1 ]]; then
+            echo "❌ A PR deve conter exatamente **um único commit** para ser aceita."
+            exit 1
+          fi
+
+      - name: Check PR approvals
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify required approvals
+        run: |
+          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '.reviews | map(select(.state == "APPROVED")) | length')
+          echo "Approvals: $APPROVALS"
+          if [[ "$APPROVALS" -lt 1 ]]; then
+            echo "❌ Pelo menos um membro precisa aprovar essa PR antes do merge."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  delete-source-branch:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.ref != 'develop' }}
+    steps:
+      - name: Delete the source branch after merge
+        run: |
+          echo "Deleting source branch: ${{ github.event.pull_request.head.ref }}"
+          gh pr merge ${{ github.event.pull_request.number }} --merge --admin --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
