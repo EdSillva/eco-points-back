@@ -79,7 +79,7 @@ Criar um novo usuário com `name` e `email`.
   "name": "Nome do Usuário",
   "email": "email@dominio.com"
 }
-
+````
 ### **GET** /users/:id
 
 Retorna os dados de um usuário específico pelo ID.
@@ -94,7 +94,7 @@ Atualiza os dados de um usuário com o ID especificado.
   "name": "Novo Nome",
   "email": "novoemail@dominio.com"
 }
-
+````
 ### **DELETE** /users/:id
 
 Deleta um usuário com o ID especificado.
@@ -134,4 +134,3 @@ Deleta um usuário com o ID especificado.
 ## Licença
 
 Este projeto está licenciado sob a **Licença ISC**.
-````
