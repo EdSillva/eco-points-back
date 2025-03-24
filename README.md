@@ -74,12 +74,13 @@ Criar um novo usuário com `name` e `email`.
 
 **Corpo da requisição:**
 
-````json
+```json
 {
   "name": "Nome do Usuário",
   "email": "email@dominio.com"
 }
-````
+```
+
 ### **GET** /users/:id
 
 Retorna os dados de um usuário específico pelo ID.
@@ -89,12 +90,14 @@ Retorna os dados de um usuário específico pelo ID.
 Atualiza os dados de um usuário com o ID especificado.
 
 **Corpo da requisição:**
+
 ```json
 {
   "name": "Novo Nome",
   "email": "novoemail@dominio.com"
 }
-````
+```
+
 ### **DELETE** /users/:id
 
 Deleta um usuário com o ID especificado.
@@ -119,7 +122,7 @@ Deleta um usuário com o ID especificado.
 ### **Configurações do Prettier**
 
 - **Aspas**: Aspas duplas (`"`) para strings.
-- **Ponto e vírgula**: Não usa ponto e vírgula ao final das declarações.
+- **Ponto e vírgula**: Usa ponto e vírgula ao final das declarações.
 - **Tabulação**: Usa 2 espaços para indentação.
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
 
