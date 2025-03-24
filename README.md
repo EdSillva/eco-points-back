@@ -21,6 +21,7 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 - **ESLint**: Ferramenta de linting para garantir a qualidade do código.
 - **Prettier**: Ferramenta de formatação de código.
 - **dotenv**: Carregamento de variáveis de ambiente a partir do arquivo .env.
+- **Firebase**: Utilizado para autenticação de usuários no sistema.
 
 ## Configuração
 
@@ -29,6 +30,11 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 - **Node.js** versão 16 ou superior
 - **npm** (gerenciador de pacotes do Node.js)
 - **Conta no Supabase** para criar a instância do banco de dados e obter as credenciais.
+- **Conta no Firebase** para gerar as credenciais de autenticação.
+
+## Firebase
+
+   Para usar o Firebase, crie um projeto na [Console do Firebase](https://console.firebase.google.com/), e pegue as credenciais para autenticação. Você precisará do arquivo `firebaseConfig.js` com a configuração do Firebase, ou pode pegar as variáveis diretamente no painel de configurações do Firebase.
 
 ### Passos para rodar o projeto
 
@@ -52,6 +58,13 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
    SUPABASE_URL=<sua_url_do_supabase>
    SUPABASE_KEY=<sua_chave_de_aceesso_do_supabase>
    PORT=3335
+
+   FIREBASE_API_KEY=COLAR_AQUI
+   FIREBASE_AUTH_DOMAIN=COLAR_AQUI
+   FIREBASE_PROJECT_ID=COLAR_AQUI
+   FIREBASE_STORAGE_BUCKET=COLAR_AQUI
+   FIREBASE_MESSAGING_SENDER_ID=COLAR_AQUI
+   FIREBASE_APP_ID=COLAR_AQUI
    ```
 
    **Importante**: Não compartilhe o arquivo .env nem a chave do Supabase publicamente.
@@ -102,6 +115,65 @@ Atualiza os dados de um usuário com o ID especificado.
 
 Deleta um usuário com o ID especificado.
 
+### POST /signup
+
+Cria um novo usuário com email e senha.
+
+**Exemplo de requisição:**
+
+```json
+{
+  "email": "teste@email.com",
+  "password": "123456"
+}
+```
+
+**Resposta esperada (201 - Criado com sucesso):**
+
+```json
+{
+  "message": "Usuário criado com sucesso!",
+  "user": {
+    "uid": "ExemploDeUID",
+    "email": "teste@email.com"
+  }
+}
+```
+### POST /login
+
+Realiza o login de um usuário com email e senha.
+
+**Exemplo de requisição:**
+
+```json
+{
+  "email": "teste@email.com",
+  "password": "123456"
+}
+```
+**Resposta esperada (200 - Login bem-sucedido):**
+
+```json
+{
+  "message": "Usuário logado com sucesso!",
+  "user": {
+    "uid": "ExemploDeUID",
+    "email": "teste@email.com"
+  }
+}
+```
+### POST /logout 
+
+Desloga o usuário atual.
+
+**Resposta esperada (200 - Logout bem-sucedido):**
+
+```json
+{
+  "message": "Usuário deslogado com sucesso!"
+}
+```
+
 ## Scripts
 
 - **dev**: Inicia o servidor em modo de desenvolvimento e observa as alterações nos arquivos. (Comando: `npm run dev`).
@@ -121,7 +193,7 @@ Deleta um usuário com o ID especificado.
 
 ### **Configurações do Prettier**
 
-- **Aspas**: Aspas duplas (`"`) para strings.
+- **Aspas**: Aspas simples (`''`) para strings.
 - **Ponto e vírgula**: Usa ponto e vírgula ao final das declarações.
 - **Tabulação**: Usa 2 espaços para indentação.
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).

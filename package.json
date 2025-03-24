@@ -14,7 +14,8 @@
     "@supabase/supabase-js": "^2.49.1",
     "backend": "file:",
     "dotenv": "^16.4.7",
-    "fastify": "^5.2.1"
+    "fastify": "^5.2.1",
+    "firebase": "^11.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",

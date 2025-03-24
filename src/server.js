@@ -1,5 +1,11 @@
 import fastify from "fastify";
 import { supabase } from "./supabaseConnection.js";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut 
+} from "firebase/auth";
+import { auth } from "./firebaseConfig.js";
 
 const app = fastify();
 
@@ -96,6 +102,50 @@ app.delete("/users/:id", async (request, reply) => {
   } catch (error) {
     console.error("Erro ao deletar usuário:", error.message);
     reply.status(400).send({ error: error.message });
+  }
+});
+
+app.post("/signup", async (request, reply) => {
+  const { email, password } = request.body;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    reply.status(201).send({
+      message: "Usuário criado com sucesso!",
+      user: { uid: user.uid, email: user.email },
+    });
+  } catch (error) {
+    console.error("Erro ao criar usuário:", error.message);
+    reply.status(400).send({ error: "Erro ao criar usuário", details: error.message });
+  }
+});
+
+app.post("/login", async (request, reply) => {
+  const { email, password } = request.body;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    reply.status(200).send({
+      message: "Usuário logado com sucesso!",
+      user: { uid: user.uid, email: user.email },
+    });
+  } catch (error) {
+    console.error("Erro ao fazer login:", error.message);
+    reply.status(400).send({ error: "Erro ao fazer login", details: error.message });
+  }
+});
+
+app.post("/logout", async (request, reply) => {
+  try {
+    await signOut(auth);
+    reply.status(200).send({ message: "Usuário deslogado com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao fazer logout:", error.message);
+    reply.status(400).send({ error: "Erro ao fazer logout", details: error.message });
   }
 });
 
