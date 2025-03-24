@@ -20,7 +20,7 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 - **Supabase**: Banco de dados e serviço backend para gerenciar os dados dos usuários.
 - **ESLint**: Ferramenta de linting para garantir a qualidade do código.
 - **Prettier**: Ferramenta de formatação de código.
-- **dotenv**: Carregamento de variáveis de ambiente a partir do arquivo `.env`.
+- **dotenv**: Carregamento de variáveis de ambiente a partir do arquivo .env.
 
 ## Configuração
 
@@ -37,4 +37,101 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
    ```bash
    git clone https://github.com/EdSillva/eco-points-back.git
    cd eco-points-back
+   ```
 
+2. **Instale as dependências:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Crie um arquivo .env na raiz do projeto:**
+   O arquivo .env deve conter as seguintes variáveis de ambiente:
+
+   ```env
+   SUPABASE_URL=<sua_url_do_supabase>
+   SUPABASE_KEY=<sua_chave_de_aceesso_do_supabase>
+   PORT=3335
+   ```
+
+   **Importante**: Não compartilhe o arquivo .env nem a chave do Supabase publicamente.
+
+4. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
+   O servidor estará disponível em **http://localhost:3335**.
+
+## Endpoints
+
+### **GET** /users
+
+Retorna todos os usuários cadastrados.
+
+### **POST** /users
+
+Criar um novo usuário com `name` e `email`.
+
+**Corpo da requisição:**
+
+````json
+{
+  "name": "Nome do Usuário",
+  "email": "email@dominio.com"
+}
+
+### **GET** /users/:id
+
+Retorna os dados de um usuário específico pelo ID.
+
+### **PUT** /users/:id
+
+Atualiza os dados de um usuário com o ID especificado.
+
+**Corpo da requisição:**
+```json
+{
+  "name": "Novo Nome",
+  "email": "novoemail@dominio.com"
+}
+
+### **DELETE** /users/:id
+
+Deleta um usuário com o ID especificado.
+
+## Scripts
+
+- **dev**: Inicia o servidor em modo de desenvolvimento e observa as alterações nos arquivos. (Comando: `npm run dev`).
+
+## Configurações de Linting e Formatação
+
+- **ESLint**: Configurado para garantir que o código siga as boas práticas de JavaScript e o estilo definido pelo projeto.
+- **Prettier**: Utilizado para garantir que o código esteja formatado de maneira consistente.
+
+### **Configurações do ESLint**
+
+- Regras recomendadas para JavaScript e Prettier.
+- Suporte para variáveis globais do Node.js.
+- Sem ponto e vírgula no final das instruções.
+- Aspas duplas para strings.
+- 2 espaços de indentação.
+
+### **Configurações do Prettier**
+
+- **Aspas**: Aspas duplas (`"`) para strings.
+- **Ponto e vírgula**: Não usa ponto e vírgula ao final das declarações.
+- **Tabulação**: Usa 2 espaços para indentação.
+- **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
+
+## Contribuição
+
+1. Faça o fork do repositório.
+2. Crie uma branch para sua funcionalidade: `git checkout -b minha-feature`.
+3. Faça as alterações e commit: `git commit -m 'Adicionando nova funcionalidade'`.
+4. Envie para o repositório remoto: `git push origin minha-feature`.
+5. Abra um Pull Request.
+
+## Licença
+
+Este projeto está licenciado sob a **Licença ISC**.
+````
