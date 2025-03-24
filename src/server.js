@@ -3,7 +3,6 @@ import { supabase } from "./supabaseConnection.js";
 
 const app = fastify();
 
-//Validação de dados usando Fastify Schema
 const userSchema = {
   body: {
     type: "object",
@@ -15,7 +14,6 @@ const userSchema = {
   },
 };
 
-//Listar todos os usuários
 app.get("/users", async (request, reply) => {
   try {
     const { data: users, error } = await supabase.from("users").select("*");
@@ -27,7 +25,6 @@ app.get("/users", async (request, reply) => {
   }
 });
 
-//Criar um novo usuário
 app.post("/users", { schema: userSchema }, async (request, reply) => {
   try {
     const { name, email } = request.body;
@@ -45,7 +42,6 @@ app.post("/users", { schema: userSchema }, async (request, reply) => {
   }
 });
 
-//Buscar usuário por ID
 app.get("/users/:id", async (request, reply) => {
   const { id } = request.params;
   try {
@@ -67,7 +63,6 @@ app.get("/users/:id", async (request, reply) => {
   }
 });
 
-//Atualizar usuário por ID
 app.put("/users/:id", async (request, reply) => {
   const { id } = request.params;
   const { name, email } = request.body;
@@ -90,7 +85,6 @@ app.put("/users/:id", async (request, reply) => {
   }
 });
 
-//Deletar usuário por ID
 app.delete("/users/:id", async (request, reply) => {
   const { id } = request.params;
 
