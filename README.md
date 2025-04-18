@@ -30,11 +30,11 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 - **Node.js** versão 16 ou superior
 - **npm** (gerenciador de pacotes do Node.js)
 - **Conta no Supabase** para criar a instância do banco de dados e obter as credenciais.
-- **Conta no Firebase** para gerar as credenciais de autenticação.
+- **Conta no Firebase** para configurar a autenticação.
 
 ## Firebase
 
-   Para usar o Firebase, crie um projeto na [Console do Firebase](https://console.firebase.google.com/), e pegue as credenciais para autenticação. Você precisará do arquivo `firebaseConfig.js` com a configuração do Firebase, ou pode pegar as variáveis diretamente no painel de configurações do Firebase.
+   Para usar o Firebase, crie um projeto na [Console do Firebase](https://console.firebase.google.com/), e pegue as credenciais para autenticação. Você precisará configurar o Firebase com um arquivo `firebaseConfig.js` ou definir as variáveis diretamente no .env, disponíveis no painel de configurações do Firebase.
 
 ### Passos para rodar o projeto
 
@@ -56,7 +56,7 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
    ```env
    SUPABASE_URL=<sua_url_do_supabase>
-   SUPABASE_KEY=<sua_chave_de_aceesso_do_supabase>
+   SUPABASE_KEY=<sua_chave_de_acesso_do_supabase>
    PORT=3335
 
    FIREBASE_API_KEY=COLAR_AQUI
@@ -115,7 +115,9 @@ Atualiza os dados de um usuário com o ID especificado.
 
 Deleta um usuário com o ID especificado.
 
-### POST /signup
+## Endpoints de Autenticação
+
+### **POST** /signup
 
 Cria um novo usuário com email e senha.
 
@@ -139,7 +141,7 @@ Cria um novo usuário com email e senha.
   }
 }
 ```
-### POST /login
+### **POST** /login
 
 Realiza o login de um usuário com email e senha.
 
@@ -162,7 +164,7 @@ Realiza o login de um usuário com email e senha.
   }
 }
 ```
-### POST /logout 
+### **POST** /logout 
 
 Desloga o usuário atual.
 
@@ -173,10 +175,11 @@ Desloga o usuário atual.
   "message": "Usuário deslogado com sucesso!"
 }
 ```
-
 ## Scripts
 
-- **dev**: Inicia o servidor em modo de desenvolvimento e observa as alterações nos arquivos. (Comando: `npm run dev`).
+- `dev`: Inicia o servidor em modo de desenvolvimento e observa as alterações nos arquivos.
+- `lint`: Verifica problemas de lint no código.
+- `lint:fix`: Corrige automaticamente problemas de lint possíveis.
 
 ## Configurações de Linting e Formatação
 
@@ -185,15 +188,26 @@ Desloga o usuário atual.
 
 ### **Configurações do ESLint**
 
-- Regras recomendadas para JavaScript e Prettier.
+- Regras recomendadas para TypeScript e Prettier.
 - Suporte para variáveis globais do Node.js.
-- Sem ponto e vírgula no final das instruções.
+- Ponto e vírgula no final das instruções.
 - Aspas duplas para strings.
 - 2 espaços de indentação.
 
 ### **Configurações do Prettier**
 
-- **Aspas**: Aspas simples (`''`) para strings.
+- **Aspas**: Aspas duplas (`""`) para strings.
 - **Ponto e vírgula**: Usa ponto e vírgula ao final das declarações.
 - **Tabulação**: Usa 2 espaços para indentação.
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
+
+## Melhorias
+
+- ✅ **Migração completa para TypeScript**: Todos os arquivos `.js` foram convertidos para `.ts`, aproveitando os recursos de tipagem estática.
+- ✅ **ESLint configurado para TypeScript**: Linting configurado com `@typescript-eslint`, seguindo padrões de qualidade com regras como:
+  - Uso de ponto e vírgula (`semi: always`)
+  - Aspas duplas para strings (`quotes: double`)
+- ✅ **Integração com Prettier**: Garantia de formatação consistente via Prettier, com integração no pipeline do ESLint (`eslint --fix` já aplica as formatações).
+- ✅ **Scripts de linting adicionados**:
+  - `npm run lint`: verifica problemas de lint no código.
+  - `npm run lint:fix`: corrige automaticamente os problemas possíveis.
