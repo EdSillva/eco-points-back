@@ -21,7 +21,7 @@ module.exports = [
     rules: {
       semi: ['error', 'always'],
       quotes: ['error', 'double'],
-      'prettier/prettier': 'error', // Aplica as regras do Prettier como erros
+      'prettier/prettier': 'error',
     },
   },
   {
@@ -30,8 +30,7 @@ module.exports = [
       parser: tsParser,
     },
     rules: {
-      // Outras regras personalizadas para .ts e .tsx podem ser adicionadas aqui
+      
     },
   },
 ];
-

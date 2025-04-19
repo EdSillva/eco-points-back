@@ -189,10 +189,9 @@ Desloga o usuário atual.
 ### **Configurações do ESLint**
 
 - Regras recomendadas para TypeScript e Prettier.
-- Suporte para variáveis globais do Node.js.
 - Ponto e vírgula no final das instruções.
 - Aspas duplas para strings.
-- 2 espaços de indentação.
+- Integração do ESLint com o Prettier.
 
 ### **Configurações do Prettier**
 
@@ -200,6 +199,8 @@ Desloga o usuário atual.
 - **Ponto e vírgula**: Usa ponto e vírgula ao final das declarações.
 - **Tabulação**: Usa 2 espaços para indentação.
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
+- **Parênteses**:  Adicionar parênteses em torno dos parâmetros de funções de seta (arrow functions).
+- **Largura**:  80 caracteres é a largura máxima de linha que o Prettier vai tentar manter. 
 
 ## Melhorias
 
