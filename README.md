@@ -30,6 +30,7 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 - **Node.js** versão 16 ou superior
 - **npm** (gerenciador de pacotes do Node.js)
 - **Conta no Supabase** para criar a instância do banco de dados e obter as credenciais.
+
 - **Conta no Firebase** para configurar a autenticação.
 
 ## Firebase
@@ -56,7 +57,9 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
    ```env
    SUPABASE_URL=<sua_url_do_supabase>
+
    SUPABASE_KEY=<sua_chave_de_acesso_do_supabase>
+
    PORT=3335
 
    FIREBASE_API_KEY=COLAR_AQUI
@@ -141,6 +144,7 @@ Cria um novo usuário com email e senha.
   }
 }
 ```
+
 ### **POST** /login
 
 Realiza o login de um usuário com email e senha.
@@ -164,6 +168,7 @@ Realiza o login de um usuário com email e senha.
   }
 }
 ```
+
 ### **POST** /logout 
 
 Desloga o usuário atual.
