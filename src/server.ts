@@ -27,7 +27,7 @@ const userSchema = {
 
 app.get("/users", async (request, reply) => {
   try {
-    const { data: users, error } = await supabase.from("users").select("*");
+    const { data: users, error } = await supabase.from("usuarios").select("*");
     if (error) throw error;
     reply.status(200).send(users);
   } catch (error: any) {
@@ -40,7 +40,7 @@ app.post("/users", { schema: userSchema }, async (request, reply) => {
   const { name, email } = request.body as User;
   try {
     const { data, error } = await supabase
-      .from("users")
+      .from("usuarios")
       .insert([{ name, email }])
       .select();
 
@@ -57,7 +57,7 @@ app.get("/users/:id", async (request, reply) => {
   const { id } = request.params as { id: string };
   try {
     const { data, error } = await supabase
-      .from("users")
+      .from("usuarios")
       .select("*")
       .eq("id", id)
       .single();
@@ -80,7 +80,7 @@ app.put("/users/:id", async (request, reply) => {
 
   try {
     const { data, error } = await supabase
-      .from("users")
+      .from("usuarios")
       .update({ name, email })
       .eq("id", id)
       .select();
@@ -100,7 +100,7 @@ app.delete("/users/:id", async (request, reply) => {
   const { id } = request.params as { id: string };
 
   try {
-    const { error } = await supabase.from("users").delete().eq("id", id);
+    const { error } = await supabase.from("usuarios").delete().eq("id", id);
     if (error) throw error;
 
     reply.status(204).send();
