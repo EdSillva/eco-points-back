@@ -4,39 +4,36 @@ Este é o backend do projeto **Eco Points**, uma aplicação que gerencia pontos
 
 ## Descrição
 
-Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistema baseado em **Supabase**. A API oferece rotas para criar, listar, atualizar e deletar usuários, com validação de dados e tratamento de erros.
+Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistema baseado em **Supabase**. A API oferece rotas para criar, listar, atualizar e deletar recompensas, com validação de dados e tratamento de erros.
 
 ## Funcionalidades
 
-- **Listar todos os usuários**: Rota para buscar todos os usuários cadastrados no banco de dados.
-- **Criar um novo usuário**: Rota para cadastrar um novo usuário fornecendo nome e e-mail.
-- **Buscar usuário por ID**: Rota para buscar um usuário específico pelo seu ID.
-- **Atualizar usuário**: Rota para atualizar o nome e e-mail de um usuário existente.
-- **Deletar usuário**: Rota para deletar um usuário baseado no seu ID.
+- **Listar todos as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
+- **Listar recompensas por categoria**: Rota para buscar recompensas por categoria.
 
 ## Tecnologias
 
-- **Fastify**: Framework para criação do servidor e das rotas.
-- **Supabase**: Banco de dados e serviço backend para gerenciar os dados dos usuários.
+- **[Fastify](https://www.fastify.io/)** – Framework web leve e performático. 
+- **[Supabase](https://supabase.com/)** – Backend-as-a-Service com banco de dados PostgreSQL.  
+- **[Firebase](https://firebase.google.com/)** – Autenticação de usuários.
 - **ESLint**: Ferramenta de linting para garantir a qualidade do código.
 - **Prettier**: Ferramenta de formatação de código.
 - **dotenv**: Carregamento de variáveis de ambiente a partir do arquivo .env.
-- **Firebase**: Utilizado para autenticação de usuários no sistema.
 
-## Configuração
+## ⚙️ Configuração
 
-### Pré-requisitos
+### ✅ Pré-requisitos
 
 - **Node.js** versão 16 ou superior
 - **npm** (gerenciador de pacotes do Node.js)
 - **Conta no Supabase** para criar a instância do banco de dados e obter as credenciais.
-- **Conta no Firebase** para gerar as credenciais de autenticação.
+- **Conta no Firebase** para configurar a autenticação.
 
 ## Firebase
 
-   Para usar o Firebase, crie um projeto na [Console do Firebase](https://console.firebase.google.com/), e pegue as credenciais para autenticação. Você precisará do arquivo `firebaseConfig.js` com a configuração do Firebase, ou pode pegar as variáveis diretamente no painel de configurações do Firebase.
+   Para usar o Firebase, crie um projeto na [Console do Firebase](https://console.firebase.google.com/), e pegue as credenciais para autenticação. Você precisará configurar o Firebase com um arquivo `firebaseConfig.js` ou definir as variáveis diretamente no .env, disponíveis no painel de configurações do Firebase.
 
-### Passos para rodar o projeto
+### 🔧 Passos para rodar o projeto
 
 1. **Clone o repositório:**
 
@@ -56,7 +53,7 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
    ```env
    SUPABASE_URL=<sua_url_do_supabase>
-   SUPABASE_KEY=<sua_chave_de_aceesso_do_supabase>
+   SUPABASE_KEY=<sua_chave_de_acesso_do_supabase>
    PORT=3335
 
    FIREBASE_API_KEY=COLAR_AQUI
@@ -77,106 +74,67 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
 ## Endpoints
 
-### **GET** /users
+### 🎁 Recompensas
 
-Retorna todos os usuários cadastrados.
+#### **GET** /rewards
 
-### **POST** /users
+Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usando o parâmetro de consulta (`query param`).
 
-Criar um novo usuário com `name` e `email`.
+**Exemplo de requisição (sem filtro):**
 
-**Corpo da requisição:**
+  ```bash
+   GET /rewards
+  ```
 
-```json
-{
-  "name": "Nome do Usuário",
-  "email": "email@dominio.com"
-}
-```
-
-### **GET** /users/:id
-
-Retorna os dados de um usuário específico pelo ID.
-
-### **PUT** /users/:id
-
-Atualiza os dados de um usuário com o ID especificado.
-
-**Corpo da requisição:**
+**Resposta esperada:**
 
 ```json
-{
-  "name": "Novo Nome",
-  "email": "novoemail@dominio.com"
-}
-```
-
-### **DELETE** /users/:id
-
-Deleta um usuário com o ID especificado.
-
-### POST /signup
-
-Cria um novo usuário com email e senha.
-
-**Exemplo de requisição:**
-
-```json
-{
-  "email": "teste@email.com",
-  "password": "123456"
-}
-```
-
-**Resposta esperada (201 - Criado com sucesso):**
-
-```json
-{
-  "message": "Usuário criado com sucesso!",
-  "user": {
-    "uid": "ExemploDeUID",
-    "email": "teste@email.com"
+[
+  {
+    "id": 1,
+    "name": "Desconto em Restaurante",
+    "description": "10% de desconto no Restaurante X",
+    "category": "alimentação",
+    "points": 100,
+    "partner_name": "Restaurante X"
+  },
+  {
+    "id": 2,
+    "name": "Desconto em Curso",
+    "description": "20% de desconto no curso X",
+    "category": "educação",
+    "points": 200,
+    "partner_name": "Curso X"
   }
-}
+]
 ```
-### POST /login
 
-Realiza o login de um usuário com email e senha.
+**Exemplo com filtro por categoria:**
 
-**Exemplo de requisição:**
+  ```bash
+   GET /rewards?category=alimentação
+  ```
+
+**Resposta esperada:**
 
 ```json
-{
-  "email": "teste@email.com",
-  "password": "123456"
-}
-```
-**Resposta esperada (200 - Login bem-sucedido):**
-
-```json
-{
-  "message": "Usuário logado com sucesso!",
-  "user": {
-    "uid": "ExemploDeUID",
-    "email": "teste@email.com"
+[
+  {
+    "id": 1,
+    "name": "Desconto em Restaurante",
+    "description": "10% de desconto no Restaurante X",
+    "category": "alimentação",
+    "points": 100,
+    "partner_name": "Restaurante X"
   }
-}
-```
-### POST /logout 
-
-Desloga o usuário atual.
-
-**Resposta esperada (200 - Logout bem-sucedido):**
-
-```json
-{
-  "message": "Usuário deslogado com sucesso!"
-}
+]
 ```
 
 ## Scripts
 
-- **dev**: Inicia o servidor em modo de desenvolvimento e observa as alterações nos arquivos. (Comando: `npm run dev`).
+- `dev`: Inicia o servidor em modo de desenvolvimento e observa as alterações nos arquivos.
+- `lint`: Verifica problemas de lint no código.
+- `lint:fix`: Corrige automaticamente problemas de lint possíveis.
 
 ## Configurações de Linting e Formatação
 
@@ -185,15 +143,27 @@ Desloga o usuário atual.
 
 ### **Configurações do ESLint**
 
-- Regras recomendadas para JavaScript e Prettier.
-- Suporte para variáveis globais do Node.js.
-- Sem ponto e vírgula no final das instruções.
+- Regras recomendadas para TypeScript e Prettier.
+- Ponto e vírgula no final das instruções.
 - Aspas duplas para strings.
-- 2 espaços de indentação.
+- Integração do ESLint com o Prettier.
 
 ### **Configurações do Prettier**
 
-- **Aspas**: Aspas simples (`''`) para strings.
+- **Aspas**: Aspas duplas (`""`) para strings.
 - **Ponto e vírgula**: Usa ponto e vírgula ao final das declarações.
 - **Tabulação**: Usa 2 espaços para indentação.
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
+- **Parênteses**:  Adicionar parênteses em torno dos parâmetros de funções de seta (arrow functions).
+- **Largura**:  80 caracteres é a largura máxima de linha que o Prettier vai tentar manter. 
+
+## Melhorias
+
+- ✅ **Migração completa para TypeScript**: Todos os arquivos `.js` foram convertidos para `.ts`, aproveitando os recursos de tipagem estática.
+- ✅ **ESLint configurado para TypeScript**: Linting configurado com `@typescript-eslint`, seguindo padrões de qualidade com regras como:
+  - Uso de ponto e vírgula (`semi: always`)
+  - Aspas duplas para strings (`quotes: double`)
+- ✅ **Integração com Prettier**: Garantia de formatação consistente via Prettier, com integração no pipeline do ESLint (`eslint --fix` já aplica as formatações).
+- ✅ **Scripts de linting adicionados**:
+  - `npm run lint`: verifica problemas de lint no código.
+  - `npm run lint:fix`: corrige automaticamente os problemas possíveis.
