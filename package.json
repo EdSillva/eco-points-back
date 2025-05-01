@@ -11,11 +11,15 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "@fastify/formbody": "^8.0.2",
     "@supabase/supabase-js": "^2.49.1",
     "backend": "file:",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
-    "firebase": "^11.5.0"
+    "firebase-admin": "^13.3.0",      
+    "glob": "^11.0.2",
+    "rimraf": "^6.0.1",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
@@ -24,6 +28,7 @@
     "eslint": "^9.25.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-prettier": "^5.2.6",
+    "nodemon": "^3.1.10",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",

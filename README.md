@@ -13,8 +13,8 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
 ## Tecnologias
 
-- **[Fastify](https://www.fastify.io/)** – Framework web leve e performático. 
-- **[Supabase](https://supabase.com/)** – Backend-as-a-Service com banco de dados PostgreSQL.  
+- **[Fastify](https://www.fastify.io/)** – Framework web leve e performático.
+- **[Supabase](https://supabase.com/)** – Backend-as-a-Service com banco de dados PostgreSQL.
 - **[Firebase](https://firebase.google.com/)** – Autenticação de usuários.
 - **ESLint**: Ferramenta de linting para garantir a qualidade do código.
 - **Prettier**: Ferramenta de formatação de código.
@@ -31,46 +31,45 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
 ## Firebase
 
-   Para usar o Firebase, crie um projeto na [Console do Firebase](https://console.firebase.google.com/), e pegue as credenciais para autenticação. Você precisará configurar o Firebase com um arquivo `firebaseConfig.js` ou definir as variáveis diretamente no .env, disponíveis no painel de configurações do Firebase.
+Para usar o Firebase, crie um projeto na [Console do Firebase](https://console.firebase.google.com/), e pegue as credenciais para autenticação. Você precisará configurar o Firebase com um arquivo `firebaseConfig.js` ou definir as variáveis diretamente no .env, disponíveis no painel de configurações do Firebase.
 
 ### 🔧 Passos para rodar o projeto
 
 1. **Clone o repositório:**
 
-   ```bash
-   git clone https://github.com/EdSillva/eco-points-back.git
-   cd eco-points-back
-   ```
+```bash
+git clone https://github.com/EdSillva/eco-points-back.git
+cd eco-points-back
+```
 
 2. **Instale as dependências:**
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. **Crie um arquivo .env na raiz do projeto:**
    O arquivo .env deve conter as seguintes variáveis de ambiente:
 
-   ```env
-   SUPABASE_URL=<sua_url_do_supabase>
-   SUPABASE_KEY=<sua_chave_de_acesso_do_supabase>
-   PORT=3335
+```env
+SUPABASE_URL=<sua_url_do_supabase>
+SUPABASE_KEY=<sua_chave_de_acesso_do_supabase>
+PORT=3335
 
-   FIREBASE_API_KEY=COLAR_AQUI
-   FIREBASE_AUTH_DOMAIN=COLAR_AQUI
-   FIREBASE_PROJECT_ID=COLAR_AQUI
-   FIREBASE_STORAGE_BUCKET=COLAR_AQUI
-   FIREBASE_MESSAGING_SENDER_ID=COLAR_AQUI
-   FIREBASE_APP_ID=COLAR_AQUI
-   ```
+FIREBASE_PROJECT_ID=<seu_id_do_projeto>
+FIREBASE_CLIENT_EMAIL=<seu_email_do_firebase>
+FIREBASE_PRIVATE_KEY=<su_chave_privada>
+```
 
-   **Importante**: Não compartilhe o arquivo .env nem a chave do Supabase publicamente.
+**Importante**: Não compartilhe o arquivo .env nem a chave do Supabase publicamente.
 
 4. **Inicie o servidor de desenvolvimento:**
-   ```bash
-   npm run dev
-   ```
-   O servidor estará disponível em **http://localhost:3335**.
+
+```bash
+npm run dev
+```
+
+O servidor estará disponível em **http://localhost:3335**.
 
 ## Endpoints
 
@@ -82,9 +81,9 @@ Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usand
 
 **Exemplo de requisição (sem filtro):**
 
-  ```bash
-   GET /rewards
-  ```
+```bash
+ GET /rewards
+```
 
 **Resposta esperada:**
 
@@ -111,9 +110,9 @@ Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usand
 
 **Exemplo com filtro por categoria:**
 
-  ```bash
-   GET /rewards?category=alimentação
-  ```
+```bash
+ GET /rewards?category=alimentação
+```
 
 **Resposta esperada:**
 
@@ -154,8 +153,8 @@ Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usand
 - **Ponto e vírgula**: Usa ponto e vírgula ao final das declarações.
 - **Tabulação**: Usa 2 espaços para indentação.
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
-- **Parênteses**:  Adicionar parênteses em torno dos parâmetros de funções de seta (arrow functions).
-- **Largura**:  80 caracteres é a largura máxima de linha que o Prettier vai tentar manter. 
+- **Parênteses**: Adicionar parênteses em torno dos parâmetros de funções de seta (arrow functions).
+- **Largura**: 80 caracteres é a largura máxima de linha que o Prettier vai tentar manter.
 
 ## Melhorias
 
