@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { supabase } from "../supabaseConnection.js";
+import { supabase } from "../db/supabaseConnection.js";
 
 export async function rewardsRoutes(app: FastifyInstance) {
   app.get("/rewards", async (request, reply) => {
