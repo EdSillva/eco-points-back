@@ -4,6 +4,39 @@ import { supabase } from "../db/supabaseConnection.js";
 import { verifyFirebaseToken } from "../utils/middleware/firebaseAuth.js";
 
 export async function sustainableActionsRoutes(app: FastifyInstance) {
+  app.get("/sustainable-actions", async (request, reply) => {
+    const authHeader = request.headers.authorization;
+    if (!authHeader) {
+      return reply
+        .status(401)
+        .send({ error: "Token de autenticação não enviado." });
+    }
+
+    const token = authHeader.split(" ")[1];
+    let userId: string;
+    
+    try {
+      const decoded = await verifyFirebaseToken(token);
+      userId = decoded.uid;
+    } catch (err) {
+      return reply.status(401).send({ error: "Token inválido ou expirado." });
+    }
+
+    const { data, error } = await supabase
+      .from("sustainableAction")
+      .select("*")
+      .eq("user_id", userId);
+
+    if (error) {
+      return reply.status(500).send({
+        error: "Erro ao buscar ações sustentáveis.",
+        detail: String(error),
+      });
+    }
+
+    return reply.status(200).send(data);
+  });
+  
   app.post("/sustainable-actions", async (request, reply) => {
     const authHeader = request.headers.authorization;
     if (!authHeader) {
