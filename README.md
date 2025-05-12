@@ -4,12 +4,13 @@ Este é o backend do projeto **Eco Points**, uma aplicação que gerencia pontos
 
 ## Descrição
 
-Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistema baseado em **Supabase**. A API oferece rotas para criar, listar, atualizar e deletar recompensas, com validação de dados e tratamento de erros.
+Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistema baseado em **Supabase**. A API oferece rotas para listar recompensas e recompensas resgatadas, com validação de dados e tratamento de erros.
 
 ## Funcionalidades
 
 - **Listar todos as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
 - **Listar recompensas por categoria**: Rota para buscar recompensas por categoria.
+- **Listar recompensas resgatadas**: Rota para buscar recompensas regatadas pelo usuário autenticado.
 
 ## Tecnologias
 
@@ -129,6 +130,39 @@ Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usand
 ]
 ```
 
+### ✅ Recompensas Resgatadas
+
+#### **GET** /redeemed-rewards
+
+Retorna a lista de recompensas que o usuário autenticado já resgatou.
+
+**Autenticação Firebase obrigatória** via token no cabeçalho `Authorization`.
+
+**Exemplo de requisição:**
+
+```bash
+ GET /redeemed-rewards
+```
+
+**Exemplo de cabeçalho:**
+
+```http
+Authorization: Bearer <ID_TOKEN>
+```
+
+**Resposta esperada:**
+
+```json
+[
+  {
+    "reward": {
+      "reward_name": "Ingresso para Cinema"
+    },
+    "redeemed_at": "2024-05-11T15:23:00.000Z"
+  }
+]
+```
+
 ## Scripts
 
 - `dev`: Inicia o servidor em modo de desenvolvimento e observa as alterações nos arquivos.
@@ -155,6 +189,7 @@ Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usand
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
 - **Parênteses**: Adicionar parênteses em torno dos parâmetros de funções de seta (arrow functions).
 - **Largura**: 80 caracteres é a largura máxima de linha que o Prettier vai tentar manter.
+- **Quebra de Linha**: "lf": Usa quebras de linha no estilo Unix (\n). 
 
 ## Melhorias
 
