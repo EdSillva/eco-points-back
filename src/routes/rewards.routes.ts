@@ -7,7 +7,7 @@ export async function rewardsRoutes(app: FastifyInstance) {
 
     let query = supabase
       .from("rewards")
-      .select("id, name, description, category, points, partner_name");
+      .select("name, category, description, points_required, stock");
 
     if (category) {
       query = query.eq("category", category);
