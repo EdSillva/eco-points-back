@@ -107,4 +107,61 @@ export async function sustainableActionsRoutes(app: FastifyInstance) {
       action: data,
     });
   });
+
+  app.delete("/sustainable-actions/:id", async (request, reply) => {
+    const authHeader = request.headers.authorization;
+    if (!authHeader) {
+      return reply
+        .status(401)
+        .send({ error: "Token de autenticação não enviado." });
+    }
+
+    const token = authHeader.split(" ")[1];
+    let userId: string;
+
+    try {
+      const decoded = await verifyFirebaseToken(token);
+      userId = decoded.uid;
+    } catch (err) {
+      return reply.status(401).send({ error: "Token inválido ou expirado." });
+    }
+
+    const paramsSchema = z.object({
+      id: z.string().uuid("ID inválido."),
+    });
+
+    let id: string;
+
+    try {
+      const params = paramsSchema.parse(request.params);
+      id = params.id;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return reply.status(400).send({
+          error: "Erro de validação",
+          issues: error.issues,
+        });
+      }
+      return reply.status(500).send({
+        error: "Erro desconhecido",
+        detail: String(error),
+      });
+    }
+
+    const { error } = await supabase
+      .from("sustainableAction")
+      .delete()
+      .match({ id, user_id: userId });
+
+    if (error) {
+      return reply.status(500).send({
+        error: "Erro ao deletar a ação sustentável.",
+        detail: String(error),
+      });
+    }
+
+    return reply.status(200).send({
+      message: "Ação sustentável deletada com sucesso.",
+    });
+  });
 }
