@@ -1,6 +1,9 @@
 import { FastifyInstance } from "fastify";
-import { getAllRewardsController } from "../controllers/reward.Controller.js";
+import { rewardsController } from "../controllers/reward.Controller.js";
+
+
+const controller = new rewardsController();
 
 export async function rewardsRoutes(app: FastifyInstance) {
-  app.get("/rewards", getAllRewardsController);
+  app.get("/rewards", controller.getAllRewards);
 }

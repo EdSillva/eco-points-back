@@ -1,8 +1,12 @@
-import { getAllRewards, getRewardsByName } from "../repositories/reward.repository.js";
+import { rewardsRepository } from "../repositories/reward.repository.js";
 
-export async function getAllRewardsService(name?: string) {
-    if (name) {
-        return await getRewardsByName(name);
+const repository = new rewardsRepository();
+
+export class RewardsService {
+    async getAllRewards(name ?: string) {
+        if (name) {
+            return await repository.getRewardsByName(name);
+        }
+        return await repository.getAllRewards();
     }
-    return await getAllRewards();
 }
