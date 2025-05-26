@@ -1,9 +1,17 @@
 import fastify from "fastify";
 import { redeemedRewardsRoutes } from "./routes/redeemedRewards.routes.js";
+import cors from '@fastify/cors';
+import { rewardsRoutes } from "./routes/rewards.routes.js";
+import { sustainableActionsRoutes } from "./routes/sustainableActions.routes.js";
 
 const app = fastify();
 
 app.register(redeemedRewardsRoutes);
+app.register(rewardsRoutes);
+app.register(sustainableActionsRoutes);
+await app.register(cors, {
+  origin: true,
+});
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3335;
 
