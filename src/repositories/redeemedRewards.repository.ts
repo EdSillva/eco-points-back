@@ -1,4 +1,4 @@
-import { supabase } from "../../db/supabaseConnection.js";
+import { supabase } from "../db/supabaseConnection.js";
 
 export class RedeemedRewardsRepository {
   async findByUserId(userId: string) {

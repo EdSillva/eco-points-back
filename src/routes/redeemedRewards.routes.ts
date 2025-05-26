@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { RedeemedRewardsController } from "../controllers/redeemedRewardsControllers/redeemedRewards.controller.js";
+import { RedeemedRewardsController } from "../controllers/redeemedRewards.controller.js";
 
 const controller = new RedeemedRewardsController();
 

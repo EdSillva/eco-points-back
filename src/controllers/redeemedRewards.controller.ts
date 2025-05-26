@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { RedeemedRewardsService } from "../../services/redeemedRewardsServices/readRedeemedRewards.service.js";
-import { verifyFirebaseToken } from "../../utils/middleware/firebaseAuth.js";
+import { RedeemedRewardsService } from "../services/readRedeemedRewards.service.js";
+import { verifyFirebaseToken } from "../utils/middleware/firebaseAuth.js";
 
 const service = new RedeemedRewardsService();
 

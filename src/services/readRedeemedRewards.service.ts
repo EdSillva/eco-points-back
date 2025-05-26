@@ -1,4 +1,4 @@
-import { RedeemedRewardsRepository } from "../../repositories/redeemedRewardsRepositories/redeemedRewards.repository.js";
+import { RedeemedRewardsRepository } from "../repositories/redeemedRewards.repository.js";
 
 export class RedeemedRewardsService {
   private repository = new RedeemedRewardsRepository();
