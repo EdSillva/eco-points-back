@@ -4,5 +4,17 @@ import { RedeemedRewardsController } from "../controllers/redeemedRewards.contro
 const controller = new RedeemedRewardsController();
 
 export async function redeemedRewardsRoutes(app: FastifyInstance) {
-  app.get("/redeemed-rewards", controller.getRedeemedRewards.bind(controller));
+  app.register(
+    async (redeemedRewardsApp) => {
+      redeemedRewardsApp.get(
+        "/",
+        controller.getRedeemedRewards.bind(controller),
+      );
+      redeemedRewardsApp.post(
+        "/redeem",
+        controller.redeemReward.bind(controller),
+      );
+    },
+    { prefix: "/redeemed-rewards" },
+  );
 }

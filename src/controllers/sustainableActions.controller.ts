@@ -1,10 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { createSustainableActionValidate } from "../schemas/sustainableActionsValidates/createSustainableAction.validate.js";
-import { sustainableActionService } from "../services/createSustainableAction.service.js";
+import { SustainableActionService } from "../services/sustainableAction.service.js";
 import { verifyFirebaseToken } from "../utils/middleware/firebaseAuth.js";
 import { z } from "zod";
+import {
+  updateSustainableActionParamsSchema,
+  updateSustainableActionSchema,
+} from "../schemas/sustainableActionsValidates/updateSustainableAction.validate.js";
+import { UserPointsRepository } from "../repositories/userPoints.repository.js";
 
-const service = new sustainableActionService();
+const service = new SustainableActionService();
+const userPointRepository = new UserPointsRepository();
 
 export class SustainableActionController {
   async createSustainableAction(request: FastifyRequest, reply: FastifyReply) {
@@ -47,6 +53,69 @@ export class SustainableActionController {
       return reply
         .status(500)
         .send({ error: "Erro interno", detail: error.message });
+    }
+  }
+
+  async getUserSustainableActions(
+    request: FastifyRequest,
+    reply: FastifyReply,
+  ) {
+    const authHeader = request.headers.authorization;
+
+    if (!authHeader) {
+      return reply
+        .status(401)
+        .send({ error: "Token de autenticação não enviado." });
+    }
+
+    try {
+      const token = authHeader.split(" ")[1];
+      const decoded = await verifyFirebaseToken(token);
+      const userId = decoded.uid;
+
+      const data = await service.getUserSustainableActions(userId);
+      return reply.status(200).send(data);
+    } catch (error) {
+      return reply.status(401).send({ error: String(error) });
+    }
+  }
+
+  async updateSustainableAction(request: FastifyRequest, reply: FastifyReply) {
+    const authHeader = request.headers.authorization;
+
+    if (!authHeader) {
+      return reply
+        .status(401)
+        .send({ error: "Token de autenticação não enviado." });
+    }
+
+    try {
+      const token = authHeader.split(" ")[1];
+      const decoded = await verifyFirebaseToken(token);
+      const userId = decoded.uid;
+
+      const validatedBody = updateSustainableActionSchema.parse(request.body);
+      const validatedParams = updateSustainableActionParamsSchema.parse(
+        request.params,
+      );
+
+      const data = await service.updateSustainableAction(
+        validatedParams.id,
+        validatedBody,
+        userId,
+      );
+
+      return reply.status(200).send({
+        message: "Ação sustentável atualizada com sucesso.",
+        action: data,
+      });
+    } catch (error) {
+      if (error instanceof Error && "issues" in error) {
+        return reply
+          .status(400)
+          .send({ error: "Erro de validação", issues: (error as any).issues });
+      }
+      return reply.status(500).send({ error: String(error) });
     }
   }
 
