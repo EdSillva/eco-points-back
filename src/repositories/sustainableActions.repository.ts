@@ -13,4 +13,10 @@ export class sustainableAction {
             .select("*")
             .maybeSingle();
     }
+    async deleteSustainableAction(id: string, userId: string) {
+        return await supabase
+            .from("sustainableAction")
+            .delete()
+            .match({ id, user_id: userId });
+    }
 }

@@ -13,4 +13,11 @@ export class sustainableActionService {
 
         return data;
     }
+    async deleteSustainableAction(id: string, userId: string) {
+        const { error } = await repository.deleteSustainableAction(id, userId);
+
+        if (error) {
+            throw new Error("Erro ao deletar a ação sustentável: " + error.message);
+        }
+    }
 }

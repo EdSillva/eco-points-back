@@ -106,4 +106,6 @@ export async function sustainableActionsRoutes(app: FastifyInstance) {
       action: data,
     });
   });
+
+  app.delete("/sustainable-actions/:id", controller.deleteSustainableAction);
 }
