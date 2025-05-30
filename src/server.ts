@@ -1,6 +1,6 @@
 import fastify from "fastify";
 import { redeemedRewardsRoutes } from "./routes/redeemedRewards.routes.js";
-import cors from '@fastify/cors';
+import cors from "@fastify/cors";
 import { rewardsRoutes } from "./routes/rewards.routes.js";
 import { sustainableActionsRoutes } from "./routes/sustainableActions.routes.js";
 
