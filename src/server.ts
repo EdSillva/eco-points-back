@@ -1,11 +1,11 @@
 import fastify from "fastify";
 import cors from '@fastify/cors';
-import { rewardsRoutes } from "./routes/rewards.routes.js";
+import { rewardRoutes } from "./routes/rewardRoutes.js";
 import { sustainableActionsRoutes } from "./routes/sustainableActions.routes.js";
 
 const app = fastify();
 
-app.register(rewardsRoutes);
+app.register(rewardRoutes);
 app.register(sustainableActionsRoutes);
 await app.register(cors, {
   origin: true,
