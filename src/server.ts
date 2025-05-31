@@ -1,6 +1,6 @@
 import fastify from "fastify";
 import cors from '@fastify/cors';
-import { rewardRoutes } from "./routes/rewardRoutes.js";
+import { rewardRoutes } from "./routes/reward.Routes.js";
 import { sustainableActionsRoutes } from "./routes/sustainableActions.routes.js";
 
 const app = fastify();
