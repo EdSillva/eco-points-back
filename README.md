@@ -8,9 +8,13 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
 ## Funcionalidades
 
-- **Listar todos as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
-- **Listar recompensas por categoria**: Rota para buscar recompensas por categoria.
-- **Listar recompensas resgatadas**: Rota para buscar recompensas regatadas pelo usuário autenticado.
+- **Listar todas as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
+- **Listar recompensas por nome**: Rota para buscar recompensas filtrando pelo nome.
+- **Listar recompensas resgatadas**: Rota para buscar recompensas resgatadas pelo usuário autenticado.
+- **Registrar ação sustentável**: Rota autenticada para registrar uma nova ação sustentável (com validação dos dados via Zod).
+- **Listar ações sustentáveis do usuário**: Rota autenticada para listar todas as ações sustentáveis associadas ao usuário autenticado.
+- **Atualizar ação sustentável**: Rota autenticada para editar uma ação sustentável específica (somente do próprio usuário).
+- **Deletar ação sustentável**: Rota autenticada para excluir uma ação sustentável específica do usuário.
 
 ## Tecnologias
 
