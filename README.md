@@ -8,9 +8,13 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 
 ## Funcionalidades
 
-- **Listar todos as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
-- **Listar recompensas por categoria**: Rota para buscar recompensas por categoria.
-- **Listar recompensas resgatadas**: Rota para buscar recompensas regatadas pelo usuário autenticado.
+- **Listar todas as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
+- **Listar recompensas por nome**: Rota para buscar recompensas filtrando pelo nome.
+- **Listar recompensas resgatadas**: Rota para buscar recompensas resgatadas pelo usuário autenticado.
+- **Registrar ação sustentável**: Rota autenticada para registrar uma nova ação sustentável (com validação dos dados via Zod).
+- **Listar ações sustentáveis do usuário**: Rota autenticada para listar todas as ações sustentáveis associadas ao usuário autenticado.
+- **Atualizar ação sustentável**: Rota autenticada para editar uma ação sustentável específica (somente do próprio usuário).
+- **Deletar ação sustentável**: Rota autenticada para excluir uma ação sustentável específica do usuário.
 
 ## Tecnologias
 
@@ -78,7 +82,7 @@ O servidor estará disponível em **http://localhost:3335**.
 
 #### **GET** /rewards
 
-Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usando o parâmetro de consulta (`query param`).
+Retorna todas as recompensas cadastradas. Você pode filtrar por nome usando o parâmetro de consulta (`query param`).
 
 **Exemplo de requisição (sem filtro):**
 
@@ -112,7 +116,7 @@ Retorna todas as recompensas cadastradas. Você pode filtrar por categoria usand
 **Exemplo com filtro por categoria:**
 
 ```bash
- GET /rewards?category=alimentação
+ GET /rewards?name=Ingresso%20para%20Cinema
 ```
 
 **Resposta esperada:**
@@ -161,6 +165,137 @@ Authorization: Bearer <ID_TOKEN>
     "redeemed_at": "2024-05-11T15:23:00.000Z"
   }
 ]
+```
+
+### 🌱 Ações Sustentáveis
+
+#### **POST** /sustainable-actions
+
+Cria uma nova ação sustentável para o usuário autenticado.
+
+**Autenticação Firebase obrigatória** via token no cabeçalho `Authorization`.
+
+**Corpo da requisição:**
+
+```json
+{
+  "title": "Plantio de árvore",
+  "description": "Plantei uma árvore no parque da cidade.",
+  "points": 50
+}
+```
+
+**Exemplo de cabeçalho:**
+
+```http
+Authorization: Bearer <ID_TOKEN>
+```
+
+**Resposta esperada:**
+
+```json
+{
+  "message": "Ação sustentável registrada com sucesso.",
+  "action": {
+    "id": "uuid",
+    "title": "Plantio de árvore",
+    "description": "Plantei uma árvore no parque da cidade.",
+    "points": 50,
+    "user_id": "uid",
+    "created_at": "2025-05-30T14:22:00.000Z"
+  }
+}
+```
+
+#### **GET** /sustainable-actions
+
+Retorna todas as ações sustentáveis registradas pelo usuário autenticado.
+
+**Autenticação Firebase obrigatória** via token no cabeçalho `Authorization`.
+
+**Exemplo de requisição:**
+
+```bash
+ GET /sustainable-actions
+```
+
+**Resposta esperada:**
+
+```json
+[
+  {
+    "id": "uuid",
+    "title": "Plantio de árvore",
+    "description": "Plantei uma árvore no parque da cidade.",
+    "points": 50,
+    "user_id": "uid",
+    "created_at": "2025-05-30T14:22:00.000Z"
+  }
+]
+```
+
+#### **PUT** /sustainable-actions/:id
+
+Atualiza uma ação sustentável específica do usuário autenticado.
+
+**Autenticação Firebase obrigatória** via token no cabeçalho `Authorization`.
+
+**Parâmetro de rota:**
+
+```bash
+ id: UUID da ação sustentável
+```
+
+**Corpo da requisição:**
+
+```json
+{
+  "title": "Plantio de árvores nativas",
+  "description": "Plantei 3 árvores nativas em área de reflorestamento.",
+  "points": 70
+}
+```
+
+**Resposta esperada:**
+
+```json
+{
+  "message": "Ação sustentável atualizada com sucesso.",
+  "action": {
+    "id": "uuid",
+    "title": "Plantio de árvores nativas",
+    "description": "Plantei 3 árvores nativas em área de reflorestamento.",
+    "points": 70,
+    "user_id": "uid",
+    "created_at": "2025-05-30T14:22:00.000Z"
+  }
+}
+```
+
+#### **DELETE** /sustainable-actions/:id
+
+Deleta uma ação sustentável específica do usuário autenticado.
+
+**Autenticação Firebase obrigatória** via token no cabeçalho `Authorization`.
+
+**Parâmetro de rota:**
+
+```bash
+ id: UUID da ação sustentável
+```
+
+**Exemplo de requisição:**
+
+```bash
+ DELETE /sustainable-actions/6d6c1e9e-34cd-4a8f-a837-519e44529d08
+```
+
+**Resposta esperada:**
+
+```json
+{
+  "message": "Ação sustentável deletada com sucesso."
+}
 ```
 
 ## Scripts
