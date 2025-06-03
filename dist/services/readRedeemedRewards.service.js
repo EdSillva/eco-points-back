@@ -30,7 +30,7 @@ export class RedeemedRewardsService {
         return { message: "Recompensa resgatada com sucesso!" };
     }
     async getUserRedeemedRewards(userId) {
-        const data = await this.repository.findById(userId);
+        const data = await this.repository.getUserIdWithRedeemedReward(userId);
         if (!data || data.length === 0) {
             return null;
         }

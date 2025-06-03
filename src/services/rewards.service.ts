@@ -10,10 +10,7 @@ export class RewardsService {
     });
   }
 
-  async getAllRewards(name?: string) {
-    if (name) {
-      return await this.rewardsRepository.getRewardsByName(name);
-    }
+  async getAllRewards() {
     return await this.rewardsRepository.getAllRewards();
   }
 }
