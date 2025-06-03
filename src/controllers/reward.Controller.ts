@@ -65,10 +65,8 @@ export class rewardsController {
   }
 
   async getAllRewards(request: FastifyRequest, reply: FastifyReply) {
-    const { name } = request.query as { name?: string };
-
     try {
-      const rewards = await service.getAllRewards(name);
+      const rewards = await service.getAllRewards();
       return reply.send(rewards);
     } catch (error) {
       return reply.status(500).send({ error: "Erro ao buscar recompensas." });

@@ -7,10 +7,7 @@ export class RewardsService {
             partner_id: partnerId,
         });
     }
-    async getAllRewards(name) {
-        if (name) {
-            return await this.rewardsRepository.getRewardsByName(name);
-        }
+    async getAllRewards() {
         return await this.rewardsRepository.getAllRewards();
     }
 }

@@ -11,16 +11,6 @@ export class RewardsRepository {
     return data;
   }
 
-  async getRewardsByName(name: string) {
-    const { data, error } = await supabase
-      .from("rewards")
-      .select("id, name, description, points_required, stock, partner_id")
-      .eq("name", name);
-
-    if (error) throw new Error(`Erro ao buscar recompensa: ${error.message}`);
-    return data;
-  }
-
   async createReward(data: CreateRewardInput & { partner_id: string }) {
     const { data: reward, error } = await supabase
       .from("rewards")

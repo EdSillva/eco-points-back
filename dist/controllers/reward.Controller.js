@@ -53,9 +53,8 @@ export class rewardsController {
         }
     }
     async getAllRewards(request, reply) {
-        const { name } = request.query;
         try {
-            const rewards = await service.getAllRewards(name);
+            const rewards = await service.getAllRewards();
             return reply.send(rewards);
         }
         catch (error) {
