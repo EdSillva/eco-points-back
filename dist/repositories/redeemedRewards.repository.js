@@ -8,7 +8,6 @@ export class RedeemedRewardsRepository {
         if (error)
             throw new Error(error.message);
         return data;
-        ;
     }
     async findById(rewardId) {
         const { data, error } = await supabase
