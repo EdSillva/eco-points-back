@@ -6,10 +6,6 @@ const controller = new RedeemedRewardsController();
 export async function redeemedRewardsRoutes(app: FastifyInstance) {
   app.register(
     async (redeemedRewardsApp) => {
-      redeemedRewardsApp.get(
-        "/",
-        controller.getRedeemedRewards.bind(controller),
-      );
       redeemedRewardsApp.post(
         "/redeem",
         controller.redeemReward.bind(controller),

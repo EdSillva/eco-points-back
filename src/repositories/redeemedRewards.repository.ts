@@ -1,7 +1,17 @@
 import { supabase } from "../db/supabaseConnection.js";
 
 export class RedeemedRewardsRepository {
-  async findById(rewardId: string) {
+  async findByUserId(userId: string) {
+    const { data, error } = await supabase
+      .from("redeemed_rewards")
+      .select("*")
+      .eq("user_id", userId);
+
+    if (error) throw new Error(error.message);
+    return data;
+  }
+
+  async findByRewardsId(rewardId: string) {
     const { data, error } = await supabase
       .from("rewards")
       .select("*")

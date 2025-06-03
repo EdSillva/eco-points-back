@@ -6,7 +6,7 @@ export class RedeemedRewardsService {
   private userPointsRepository = new UserPointsRepository();
 
   async redeemReward(userId: string, rewardId: string) {
-    const reward = await this.repository.findById(rewardId);
+    const reward = await this.repository.findByRewardsId(rewardId);
 
     if (!reward) {
       throw new Error("Recompensa não encontrada.");
@@ -44,7 +44,7 @@ export class RedeemedRewardsService {
   }
 
   async getUserRedeemedRewards(userId: string) {
-    const data = await this.repository.findById(userId);
+    const data = await this.repository.findByUserId(userId);
 
     if (!data || data.length === 0) {
       return null;
