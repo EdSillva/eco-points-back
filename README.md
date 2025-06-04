@@ -9,7 +9,6 @@ Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistem
 ## Funcionalidades
 
 - **Listar todas as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
-- **Listar recompensas por nome**: Rota para buscar recompensas filtrando pelo nome.
 - **Listar recompensas resgatadas**: Rota para buscar recompensas resgatadas pelo usuário autenticado.
 - **Registrar ação sustentável**: Rota autenticada para registrar uma nova ação sustentável (com validação dos dados via Zod).
 - **Listar ações sustentáveis do usuário**: Rota autenticada para listar todas as ações sustentáveis associadas ao usuário autenticado.
@@ -82,9 +81,9 @@ O servidor estará disponível em **http://localhost:3335**.
 
 #### **GET** /rewards
 
-Retorna todas as recompensas cadastradas. Você pode filtrar por nome usando o parâmetro de consulta (`query param`).
+Retorna todas as recompensas cadastradas.
 
-**Exemplo de requisição (sem filtro):**
+**Exemplo de requisição:**
 
 ```bash
  GET /rewards
@@ -113,25 +112,49 @@ Retorna todas as recompensas cadastradas. Você pode filtrar por nome usando o p
 ]
 ```
 
-**Exemplo com filtro por categoria:**
+#### **POST** /rewards
+
+Cria uma nova recompensa.
+
+**Autenticação Firebase obrigatória** via token no cabeçalho `Authorization`.
+
+**Exemplo de requisição:**
 
 ```bash
- GET /rewards?name=Ingresso%20para%20Cinema
+ POST /rewards
+```
+
+**Exemplo de cabeçalho:**
+
+```http
+Authorization: Bearer <ID_TOKEN>
+```
+
+**Corpo da requisição (exemplo):**
+
+```json
+{
+  "name": "Ingresso de cinema",
+  "description": "1 ingresso para qualquer sessão",
+  "points_required": 120,
+  "stock": 10,
+}
 ```
 
 **Resposta esperada:**
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Desconto em Restaurante",
-    "description": "10% de desconto no Restaurante X",
-    "category": "alimentação",
-    "points": 100,
-    "partner_name": "Restaurante X"
+{
+  "message": "Recompensa criada com sucesso.",
+  "reward": {
+    "id": "uuid",
+    "name": "Ingresso de cinema",
+    "description": "1 ingresso para qualquer sessão",
+    "points_required": 120,
+    "stock": 10,
+    "partner_id": "uuid-do-parceiro"
   }
-]
+}
 ```
 
 ### ✅ Recompensas Resgatadas
@@ -165,6 +188,28 @@ Authorization: Bearer <ID_TOKEN>
     "redeemed_at": "2024-05-11T15:23:00.000Z"
   }
 ]
+```
+
+#### **POST** /redeemed-rewards/redeem
+
+Permite ao usuário resgatar uma recompensa.
+
+**Autenticação Firebase obrigatória** via token no cabeçalho `Authorization`.
+
+**Corpo da requisição (exemplo):**
+
+```json
+{
+  "reward_id": "uuid-da-recompensa"
+}
+```
+
+**Resposta esperada:**
+
+```json
+{
+  "message": "Recompensa resgatada com sucesso"
+}
 ```
 
 ### 🌱 Ações Sustentáveis
@@ -324,7 +369,7 @@ Deleta uma ação sustentável específica do usuário autenticado.
 - **Vírgula final**: Adiciona vírgula final em objetos e arrays (onde permitido pelo ES5).
 - **Parênteses**: Adicionar parênteses em torno dos parâmetros de funções de seta (arrow functions).
 - **Largura**: 80 caracteres é a largura máxima de linha que o Prettier vai tentar manter.
-- **Quebra de Linha**: "lf": Usa quebras de linha no estilo Unix (\n). 
+- **Quebra de Linha**: "lf": Usa quebras de linha no estilo Unix (\n).
 
 ## Melhorias
 
