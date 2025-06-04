@@ -4,11 +4,13 @@ Este é o backend do projeto **Eco Points**, uma aplicação que gerencia pontos
 
 ## Descrição
 
-Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistema baseado em **Supabase**. A API oferece rotas para listar recompensas e recompensas resgatadas, com validação de dados e tratamento de erros.
+Este projeto fornece uma API para gerenciar usuários e seus pontos em um sistema baseado em **Supabase**. A API oferece rotas para listar, criar e resgatar recompensas; Listar recompensas resgatadas; Adicionar, listar, atualizar e deletar ações sustentáveis com validação de dados e tratamento de erros.
 
 ## Funcionalidades
 
 - **Listar todas as recompensas**: Rota para buscar todas as recompensas cadastradas no banco de dados.
+- **Criar recompensas**: Rota autenticada para registrar uma nova recompensa no banco de dados.
+- **Resgatar recompensa**: Rota autenticada para resgatar uma recompensa.
 - **Listar recompensas resgatadas**: Rota para buscar recompensas resgatadas pelo usuário autenticado.
 - **Registrar ação sustentável**: Rota autenticada para registrar uma nova ação sustentável (com validação dos dados via Zod).
 - **Listar ações sustentáveis do usuário**: Rota autenticada para listar todas as ações sustentáveis associadas ao usuário autenticado.
